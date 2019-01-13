@@ -1,0 +1,258 @@
+package methodsblackjack;
+
+import java.util.Scanner;
+public class MethodsBlackJack 
+{
+    public static int cardPick(int num )
+    {
+        int numvalue;
+     if(num==1)
+        {
+            int num2;
+            System.out.println("Card: Ace");
+            
+            
+            numvalue=11;
+        }
+        else if(num==11)
+        {
+            System.out.println("Card: Jack");
+           
+            numvalue=10;
+        }
+        else if(num==12)
+        {
+            System.out.println("Card: Queen");
+            numvalue=10;
+        }
+        else if(num==13)
+        {
+            System.out.println("Card: King");
+            numvalue=10;
+        }
+        
+        else 
+        {
+            System.out.println("Card: " + num);
+            numvalue=num;
+        }
+        return(numvalue);
+    }
+    public static int cardPick2( int num2)
+    {
+        int num2value;
+        
+        if(num2==1)
+        {
+            System.out.println("Card 2: Ace" );
+            num2value=11;
+        }
+        else if(num2==11)
+        {
+            System.out.println("Card 2: Jack");
+            num2value=10;
+        }
+        else if(num2==12)
+        {
+            System.out.println("Card 2: Queen");
+            num2value=10;
+        }
+        else if(num2==13)
+        {
+            System.out.println("Card 2: King");
+            num2value=10;
+        }
+        else
+        {
+            System.out.println("Card 2: " + num2);
+            num2value=num2;
+           
+        }
+        return(num2);
+        
+    }
+    public static int numValue(int num, int totalvalue)
+    {
+        int numvalue;
+        if(num==1)
+        {
+            if(totalvalue+11>21)
+            {
+                numvalue=1;
+            }
+            else
+            {
+                numvalue=11;
+            }    
+        }
+        else if(num==11||num==12||num==13)
+        {
+            numvalue=10;
+        }
+        else
+        {
+            numvalue=num;
+        }
+        return(numvalue);
+    }
+    public static int num2Value(int num2, int totalvalue)
+    {
+        int num2value;
+        if(num2==1)
+        {
+            if(totalvalue+11>21)
+            {
+                num2value=1;
+            }
+            else
+            {
+                 num2value=11;
+            }  
+        }
+        else if(num2==11||num2==12||num2==13)
+        {
+            num2value=10;
+        }
+        else
+        {
+            num2value=num2;
+        }
+        return(num2value);
+    }
+    public static void winLose(int totalvalue)
+    {
+         if(totalvalue==21)
+         {
+               System.out.println("Your score is " + totalvalue);
+               System.out.println("You will win the game if I don't get a score of 21");
+                   
+         }
+         else
+         {
+            System.out.println("Your score is " + totalvalue);
+        
+         }
+         if(totalvalue>21)
+         {
+             System.out.println("I Win!");
+         }   
+    }
+    public static int compHoldHit(int computerTotalValue)
+    {
+        int num=0,card, totalNumValue=0, numvalue;
+        while(computerTotalValue<=16)
+        {
+            
+            System.out.println("I will HIT again");
+             num = (int) ( 1 + Math.random() * 13);
+             
+             card=cardPick(num);
+             numvalue=numValue(card, computerTotalValue );
+             computerTotalValue=computerTotalValue+numvalue;   
+        }
+        
+        return(computerTotalValue); 
+    }
+    public static void winner(int totalvalue, int computerTotalValue)
+    {
+         if(totalvalue>computerTotalValue)
+        {
+            System.out.println("You win!");
+        }
+        else if(totalvalue<21&&computerTotalValue>21)
+        {
+            System.out.println("You win!");
+        }
+        else if(totalvalue==computerTotalValue)
+        {
+            System.out.println("It's a tie, I win!");
+        }
+        else
+        {
+            System.out.println("I win!");
+        }
+    }
+    
+    public static void main(String[] args) 
+    {
+        Scanner blackJack= new Scanner(System.in);
+      int num,num2,card1,card2 , userchoice, totalvalue=0, numvalue, num2value, numvalue2=0, computerTotalValue=0, card1again, useranswer;
+      
+        System.out.print("Do you want to play the game Blackjack? Enter 1 for yes and 2 for no: ");
+        useranswer= blackJack.nextInt();
+        blackJack.nextLine();
+        while(useranswer==1)
+        {
+        System.out.println("Alright! The game is on!");
+      
+        System.out.println("I will give you two random cards from the deck and you can choose to hold or hit");
+        System.out.println("I will also draw two cards after you say hold");
+        
+        num = (int) ( 1 + Math.random() * 13);
+        card1=cardPick(num);
+        num2= (int) (1+ Math.random()*13);
+        card2=cardPick2(num2);
+        
+        numvalue=numValue(card1, totalvalue);
+        num2value=num2Value(card2, totalvalue);
+        totalvalue= numvalue+num2value;
+        
+        System.out.println("Do you want to HIT or HOLD?");
+        System.out.println("If you want to hit, enter 1. If you want to hold, enter 2");
+        userchoice= blackJack.nextInt();
+        blackJack.nextLine();
+  
+         while(userchoice==1)
+             
+         {
+             num = (int) ( 1 + Math.random() * 13);
+             card1again=cardPick(num);
+             numvalue=numValue(card1again, totalvalue);
+             totalvalue= totalvalue+numvalue;
+             System.out.println("Do you want to HIT or HOLD?");
+             System.out.println("If you want to hit, enter 1. If you want to hold, enter 2");
+             userchoice= blackJack.nextInt();
+             blackJack.nextLine();
+             
+         }
+        
+         if(totalvalue>21)
+         {
+             System.out.println("Your score is: " + totalvalue);
+             System.out.println("BUST! I Win!");
+             System.out.println("Do you want to play again? 1: yes 2: no");
+             useranswer= blackJack.nextInt();
+             blackJack.nextLine();
+         }
+         else
+         {
+         winLose(totalvalue);
+         
+         System.out.println("Ok, now I will pick two cards.");
+         
+         num = (int) ( 1 + Math.random() * 13);
+         card1=cardPick(num);
+         num2= (int) (1+ Math.random()*13);
+         card2=cardPick2(num2);
+         
+         numvalue= numValue(card1, computerTotalValue);
+         num2value= num2Value(card2,computerTotalValue);
+         
+         computerTotalValue= numvalue+num2value;
+         
+         computerTotalValue=compHoldHit(computerTotalValue);
+         
+         
+         System.out.println("My score is: " + computerTotalValue);
+         winner(totalvalue, computerTotalValue);
+         
+            System.out.println("Do you want to play again?");
+            useranswer= blackJack.nextInt();
+            blackJack.nextLine();
+        }
+         
+        }
+            
+    }
+    
+}
